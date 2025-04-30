@@ -123,8 +123,26 @@ public class Market_Panel {
     }
     
     private void publishGame() {    	
-    	frame.dispose();
-        Publisher_Page.main(new String[]{}); // publisher ekranına geç
+      
+        int result = JOptionPane.showConfirmDialog(
+        	    null,
+        	    "Publisher Dashboard Sayfasından Geri Buraya Dönemezsiniz. Tekrar Giriş Yapmanız Gerekir. Emin misiniz?",
+        	    "Tekrar Giriş Yapmanız Gerekli",
+        	    JOptionPane.YES_NO_OPTION,
+        	    JOptionPane.WARNING_MESSAGE
+        	);
+
+        	if (result == JOptionPane.YES_OPTION) {
+        	    // Evet seçildi, giriş ekranına yönlendir
+                Publisher_Page.main(new String[]{}); // publisher ekranına geç
+                frame.dispose();
+        	} else {
+        	    // Hayır seçildi, bir şey yapma veya farklı işlem yap
+        	    System.out.println("Kullanıcı publisher dashboard'a giriş yapmak istemedi.");
+        	    
+        	}
+
+        
     }
 
     private void refreshLibraryPanel() {

@@ -390,6 +390,9 @@ public class Publisher_Page {
 
     private void deleteGame() {
         String gameId = txtgid.getText().trim();
+        
+        
+        
         if (gameId.isEmpty()) {
             JOptionPane.showMessageDialog(frame, "Please select a game to delete (search by ID first)", 
                 "No Game Selected", JOptionPane.WARNING_MESSAGE);
@@ -405,10 +408,17 @@ public class Publisher_Page {
         }
 
         try {
+        	pst = con.prepareStatement("DELETE FROM purchases WHERE game_id = ?");
+        	pst.setString(1, gameId);
+        	pst.executeUpdate();
+        	pst.close(); // Önceki statement'ı kapat
+        	
             pst = con.prepareStatement("DELETE FROM game WHERE id = ?");
             pst.setString(1, gameId);
             
             int rowsAffected = pst.executeUpdate();
+            
+            System.out.println(rowsAffected);
             if (rowsAffected > 0) {
                 JOptionPane.showMessageDialog(frame, "Game deleted successfully!", 
                     "Success", JOptionPane.INFORMATION_MESSAGE);

@@ -16,6 +16,8 @@ public class Market_Panel {
     private JButton checkoutButton;
     private int currentUserId;
     private Library_Panel1 libraryPanel;
+    
+    
 
     public Market_Panel(int userId) {
         this.currentUserId = userId;
@@ -40,7 +42,7 @@ public class Market_Panel {
         headerPanel.setBackground(new Color(32, 42, 68));
         headerPanel.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
 
-        JLabel titleLabel = new JLabel("GLOBAL GAME STORE");
+        JLabel titleLabel = new JLabel("GAME STORE");
         titleLabel.setFont(new Font("Tahoma", Font.BOLD, 28));
         titleLabel.setForeground(Color.WHITE);
         headerPanel.add(titleLabel, BorderLayout.WEST);
@@ -51,6 +53,13 @@ public class Market_Panel {
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 0));
         buttonPanel.setOpaque(false); // Arka plan görünmesin (header ile aynı olsun)
 
+        // Backto Login Button
+        JButton loginButton = new JButton("<Back");
+        loginButton.setPreferredSize(new Dimension(100, 40)); // Aynı boyutta olsun
+        styleButton(loginButton);
+        loginButton.addActionListener(e -> backToLogin());
+        buttonPanel.add(loginButton);
+        
         // Publish Button
         JButton publishButton = new JButton("Publish Game");
         publishButton.setPreferredSize(new Dimension(140, 40)); // Küçük ve sabit boyut
@@ -64,6 +73,9 @@ public class Market_Panel {
         styleButton(libraryButton);
         libraryButton.addActionListener(e -> openLibrary());
         buttonPanel.add(libraryButton);
+        
+      
+
 
         // Header Panel'in EAST kısmına ekliyoruz
         headerPanel.add(buttonPanel, BorderLayout.EAST);
@@ -122,12 +134,19 @@ public class Market_Panel {
         libraryPanel.refreshLibrary();
     }
     
+    private void backToLogin() {
+    	frame.dispose();
+        Login_Panel.main(new String[] {});
+
+    }
+    
+    
     private void publishGame() {    	
       
         int result = JOptionPane.showConfirmDialog(
         	    null,
-        	    "Publisher Dashboard Sayfasından Geri Buraya Dönemezsiniz. Tekrar Giriş Yapmanız Gerekir. Emin misiniz?",
-        	    "Tekrar Giriş Yapmanız Gerekli",
+        	    "You cannot return here from the Publisher Dashboard Page. You will need to log in again. Are you sure?",
+        	    "You can't go back from here",
         	    JOptionPane.YES_NO_OPTION,
         	    JOptionPane.WARNING_MESSAGE
         	);

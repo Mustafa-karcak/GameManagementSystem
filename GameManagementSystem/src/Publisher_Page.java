@@ -78,6 +78,9 @@ public class Publisher_Page {
         setupGameIdPanel();
         setupActionButtons();
     }
+    
+   
+
 
     private void setupMainFrame() {
         frame = new JFrame();
@@ -126,7 +129,7 @@ public class Publisher_Page {
         inputPanel.add(txtgname);
 
         // Price
-        JLabel priceLabel = createInputLabel("Price (€):");
+        JLabel priceLabel = createInputLabel("Price ($):");
         txtprice = createInputField();
         txtprice.addKeyListener(new KeyAdapter() {
             public void keyTyped(KeyEvent e) {
@@ -182,7 +185,7 @@ public class Publisher_Page {
 
         // Exit Button
         JButton exitButton = createActionButton("EXIT", new Color(231, 76, 60));
-        exitButton.addActionListener(e -> System.exit(0));
+        exitButton.addActionListener(e -> backToLogin());
         buttonPanel.add(exitButton);
 
         frame.getContentPane().add(buttonPanel, BorderLayout.SOUTH);
@@ -301,13 +304,25 @@ public class Publisher_Page {
                 "Missing Information", JOptionPane.WARNING_MESSAGE);
             return;
         }
+        
 
         try {
             // Validate and format price
             double price = Double.parseDouble(priceText);
             DecimalFormat df = new DecimalFormat("#.##");
             price = Double.parseDouble(df.format(price));
+            
+            // Duplicate game name check
+            pst = con.prepareStatement("SELECT COUNT(*) FROM game WHERE name = ?");
+            pst.setString(1, gameName);
+            rs = pst.executeQuery();
+            if (rs.next() && rs.getInt(1) > 0) {
+                JOptionPane.showMessageDialog(frame, "A game with this name already exists.", "Duplicate Game Name", JOptionPane.ERROR_MESSAGE);
+                clearFields();
+                return;
+            }
 
+            
             pst = con.prepareStatement("INSERT INTO game(name, price, genre) VALUES(?, ?, ?)");
             pst.setString(1, gameName);
             pst.setDouble(2, price);
@@ -353,11 +368,24 @@ public class Publisher_Page {
         }
 
         try {
-            // Validate and format price
+        	// First check for duplicate name (excluding current game)
+        	pst = con.prepareStatement("SELECT COUNT(*) FROM game WHERE name = ? AND id != ?");
+        	pst.setString(1, gameName);
+        	pst.setString(2, gameId);
+        	rs = pst.executeQuery();
+        	if (rs.next() && rs.getInt(1) > 0) {
+        	    JOptionPane.showMessageDialog(frame, "A game with this name already exists.", 
+        	        "Duplicate Game Name", JOptionPane.ERROR_MESSAGE);
+        	    return;
+        	}
+
+        	
+        	// Validate and format price
             double price = Double.parseDouble(priceText);
             DecimalFormat df = new DecimalFormat("#.##");
             price = Double.parseDouble(df.format(price));
-
+            
+          
             pst = con.prepareStatement("UPDATE game SET name = ?, price = ?, genre = ? WHERE id = ?");
             pst.setString(1, gameName);
             pst.setDouble(2, price);
@@ -374,6 +402,8 @@ public class Publisher_Page {
                 JOptionPane.showMessageDialog(frame, "No game found with ID: " + gameId, 
                     "Not Found", JOptionPane.WARNING_MESSAGE);
             }
+          
+            
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(frame, "Please enter a valid price (e.g., 19.99)", 
                 "Invalid Price", JOptionPane.ERROR_MESSAGE);
@@ -446,6 +476,12 @@ public class Publisher_Page {
         txtgenre.setText("");
         table.clearSelection();
         txtgname.requestFocus();
+    }
+    
+    private void backToLogin() {
+    	frame.dispose();
+        Login_Panel.main(new String[] {});
+
     }
 
     private void showSqlError(SQLException e) {

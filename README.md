@@ -30,11 +30,7 @@ Bu proje, kullanıcıların giriş yapabildiği, kayıt olabildiği ve bir marke
 2. MySQL veritabanınızı oluşturun:
 database.sql dosyasını phpMyAdmin veya MySQL Workbench kullanarak import edin (önerilen phpMyAdmin).
 
-3.DatabaseConnection.java içindeki bağlantı bilgilerini kendi MySQL ayarlarınıza göre güncelleyin: ( önerilenleri yaparsanız gerek yok güncellemeye).
-
-String url = "jdbc:mysql://localhost:3306/ministeam";
-String user = "root";
-String password = ""; // şifre varsa ekleyin
+3.DatabaseConnection.java içindeki bağlantı bilgilerini kendi MySQL ayarlarınıza göre güncelleyin şifre varsa eğer:
 
 4. IDE'nizde projeyi açın ve Login_Panel.java dosyasını çalıştırın.
 

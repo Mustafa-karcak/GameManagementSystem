@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 29, 2025 at 06:03 PM
+-- Generation Time: May 22, 2025 at 10:07 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `game` (
   `name` varchar(55) NOT NULL,
-  `price` int(11) NOT NULL,
+  `price` float NOT NULL,
   `genre` varchar(55) NOT NULL,
   `id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -39,12 +39,9 @@ CREATE TABLE `game` (
 --
 
 INSERT INTO `game` (`name`, `price`, `genre`, `id`) VALUES
-('Red dead 2', 30, 'action', 1),
-('ready or not', 32, 'actions and adventure', 6),
-('bannerlord', 100, 'stratesji', 7),
-('PUBG', 32, 'Online', 8),
-('Call of Duty', 35, 'action', 9),
-('Red dead 2', 30, 'action', 11);
+('PUBG', 12, 'action and adventure', 21),
+('Red dead redemption 2', 56, 'action', 22),
+('Ready Or Not', 40, 'MMO', 23);
 
 -- --------------------------------------------------------
 
@@ -59,6 +56,16 @@ CREATE TABLE `purchases` (
   `purchase_date` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `purchases`
+--
+
+INSERT INTO `purchases` (`id`, `user_id`, `game_id`, `purchase_date`) VALUES
+(39, 11, 21, '2025-04-30 19:49:53'),
+(40, 11, 22, '2025-05-01 12:46:46'),
+(41, 11, 23, '2025-05-06 13:29:02'),
+(42, 13, 21, '2025-05-06 13:44:17');
+
 -- --------------------------------------------------------
 
 --
@@ -71,6 +78,15 @@ CREATE TABLE `users` (
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `username`, `email`, `password`) VALUES
+(11, 'dev', 'karcamustafa.karcak@gmail.com', '1'),
+(12, 'mustafa', 'karcamsua@gmail.com', 'a12345678!'),
+(13, 'musti', 'asff@g', 'açaçaçaç!2');
 
 --
 -- Indexes for dumped tables
@@ -104,19 +120,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `game`
 --
 ALTER TABLE `game`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `purchases`
 --
 ALTER TABLE `purchases`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- Constraints for dumped tables

@@ -69,7 +69,7 @@ Uygulama açılacak ve giriş ekranı görünecektir.
 ✅ Son Uyarılar!
 Giriş bilgilerini kullanarak test edebilirsiniz.
 Eğer veritabanı içeriğinde kullanıcı bilgisi yoksa phpMyAdmin üzerinden veya register butonuna basarak yeni kullanıcı ekleyebilirsiniz.
-Steam Store kısmında oyun olmuyacak siz publish game butonuna basarak ordan oyun ekleyebilirsiniz hiç bir şekilde phpMyAdmin üstünden eklemek zorunda değilsiniz,
+Steam Store kısmında oyun olmazsa siz publish game butonuna basarak ordan oyun ekleyebilirsiniz hiç bir şekilde phpMyAdmin üstünden eklemek zorunda değilsiniz,
 proje kendi kendinin ihtiyaçlarını giderebiliyor.
 
 
